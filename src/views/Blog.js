@@ -26,7 +26,7 @@ export default class Blog extends Component {
                         {posts.map(post => (
                             <Post post={post} key={post.id} />
                         ))}
-                        <h3>No posts to show</h3>
+                        <h3></h3>
                     </ul>
                 </div>
             </div>

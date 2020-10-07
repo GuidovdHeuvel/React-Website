@@ -29,10 +29,8 @@ export default class Header extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/marketplace">Marketplace</Link>
                             </li>
-
                             <li className="">
                             </li>
-
                             <li className="nav-item">
                                 <Link className="nav-link" to="/cart"> 
                                     <span style={{marginRight: '5px'}}>Cart</span> 

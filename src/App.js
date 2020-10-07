@@ -35,7 +35,7 @@ export default class App extends Component {
          })
       })
 
-    fetch('http://localhost:5000/api/shop')
+    fetch('https://flaskbook-api.herokuapp.com/api/shop')
       .then(response => response.json())
       .then(data => this.setState({
         products: data
@@ -69,6 +69,37 @@ export default class App extends Component {
     })
   }
 
+  getCountOfProduct = (product, cart) => { 
+    var count = 0;
+    cart.forEach(element =>{ if (element === product) { count += 1 } }) 
+    return count 
+  }
+
+  handleRemoveFromCart = productObj => {
+    let cart = [...this.state.cart];
+    
+    // for (let i = 0; i < num; i++) {
+
+      let index = cart.indexOf(productObj);
+
+      if (index !== -1) {
+        cart.splice(index, 1);
+
+        this.setState({
+          cart: cart,
+          cartTotal: this.state.cartTotal -= productObj.price
+        })
+      }
+    // }
+  }
+
+  handleClearCart = () => {
+    this.setState({
+      cart: [],
+      cartTotal: 0
+    })
+  }
+
   render() {
     // console.log(this.state.products);
     // console.log("Rendered")
@@ -85,7 +116,7 @@ export default class App extends Component {
               <Route exact path="/blog" render={() => <Blog />} />
               <Route exact path="/blog/:postId" render={({ match }) => <BlogPost match={match} />} />
               <Route exact path="/marketplace" render={() => <Martketplace products={this.state.products} handleAddToCart={this.handleAddToCart} />} />
-              <Route exact path="/cart" render={() => <Cart />} />
+              <Route exact path="/cart" render={() => <Cart cart={this.state.cart} cartTotal={this.state.cartTotal} handleRemoveFromCart={this.handleRemoveFromCart} handleClearCart={this.handleClearCart} getCountOfProduct={this.getCountOfProduct} />} />
             </Switch>
           </div>
         </main>
